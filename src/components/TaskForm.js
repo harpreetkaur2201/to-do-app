@@ -1,39 +1,53 @@
-import { useState } from 'react';
+function TaskForm(props) {
 
-function TaskForm({ dispatch }) {
+    function handleSubmit(e) {
+        e.preventDefault();
 
-    const [task, setTask] = useState('');
+        if (!props.text.trim()) return;
 
-    const handleSubmit = event => {
-        event.preventDefault();
+        if (props.editId === null) {
 
-        if (!task.trim()) return;
+            props.dispatch({
+                type: "ADD",
+                payload: {
+                    id: Date.now(),
+                    text: props.text,
+                    completed: false,
+                    date: new Date().toLocaleDateString()
+                }
+            });
 
-        dispatch({
-            type: 'ADD_TASK',
-            payload: {
-                id: Date.now(),
-                text: task,
-                completed: false,
-                date: new Date().toLocaleDateString()
-            }
-        });
+        } else {
 
-        setTask('');
-    };
+            props.dispatch({
+                type: "EDIT",
+                payload: {
+                    id: props.editId,
+                    text: props.text,
+                    date: new Date().toLocaleDateString()
+                }
+            });
+
+            props.setEditId(null);
+        }
+
+        props.setText("");
+    }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="task-form">
+
             <input
                 type="text"
-                placeholder="Enter a task"
-                value={task}
-                onChange={event => setTask(event.target.value)}
+                placeholder="New Task"
+                value={props.text}
+                onChange={(e) => props.setText(e.target.value)}
             />
 
             <button type="submit">
-                Add Task
+                {props.editId === null ? "Add" : "Edit"}
             </button>
+
         </form>
     );
 }
