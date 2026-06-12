@@ -24,12 +24,17 @@ export function taskReducer(state, action) {
             ];
 
         case "DELETE_TASK":
-            return state.filter(task => task.id !== action.payload);
+            return state.filter(
+                task => task.id !== action.payload
+            );
 
         case "TOGGLE_TASK":
             return state.map(task =>
                 task.id === action.payload
-                    ? { ...task, completed: !task.completed }
+                    ? {
+                        ...task,
+                        completed: !task.completed
+                    }
                     : task
             );
 
@@ -38,7 +43,8 @@ export function taskReducer(state, action) {
                 task.id === action.payload.id
                     ? {
                         ...task,
-                        text: action.payload.text
+                        text: action.payload.text,
+                        ...getDateTime()
                     }
                     : task
             );
