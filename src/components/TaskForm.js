@@ -6,7 +6,6 @@ function TaskForm(props) {
         if (!props.text.trim()) return;
 
         if (props.editId === null) {
-
             props.dispatch({
                 type: "ADD_TASK",
                 payload: {
@@ -16,11 +15,9 @@ function TaskForm(props) {
                     date: new Date().toLocaleDateString()
                 }
             });
-
         } else {
-
             props.dispatch({
-                type: "EDIT_TASK",
+                type: "UPDATE_TASK",
                 payload: {
                     id: props.editId,
                     text: props.text,
@@ -35,19 +32,16 @@ function TaskForm(props) {
     }
 
     return (
-        <form onSubmit={handleSubmit} className="task-form">
-
+        <form className="task-form" onSubmit={handleSubmit}>
             <input
-                type="text"
-                placeholder="New Task"
                 value={props.text}
                 onChange={(e) => props.setText(e.target.value)}
+                placeholder="Enter task..."
             />
 
-            <button type="submit">
-                {props.editId === null ? "Add" : "Edit"}
+            <button>
+                {props.editId === null ? "Add" : "Update"}
             </button>
-
         </form>
     );
 }

@@ -1,28 +1,9 @@
-import {
-    FaClipboardList,
-    FaCheck,
-    FaPen,
-    FaTrash
-} from "react-icons/fa6";
+import { FaCheck, FaPen, FaTrash } from "react-icons/fa";
 
 function TaskList(props) {
 
-    function startEdit(task) {
-        props.setText(task.text);
-        props.setEditId(task.id);
-    }
-
     if (props.tasks.length === 0) {
-        return (
-            <div className="empty-state">
-
-                <FaClipboardList className="empty-icon" />
-
-                <h3>No tasks yet</h3>
-                <p>Add your first task to get started</p>
-
-            </div>
-        );
+        return <p>No tasks yet</p>;
     }
 
     return (
@@ -41,12 +22,10 @@ function TaskList(props) {
 
                     <div className="buttons">
 
-                        {/* COMPLETE */}
                         <button
-                            className="btn complete"
                             onClick={() =>
                                 props.dispatch({
-                                    type: "TOGGLE",
+                                    type: "TOGGLE_TASK",
                                     payload: task.id
                                 })
                             }
@@ -54,20 +33,19 @@ function TaskList(props) {
                             <FaCheck />
                         </button>
 
-                        {/* EDIT */}
                         <button
-                            className="btn edit"
-                            onClick={() => startEdit(task)}
+                            onClick={() => {
+                                props.setText(task.text);
+                                props.setEditId(task.id);
+                            }}
                         >
                             <FaPen />
                         </button>
 
-                        {/* DELETE */}
                         <button
-                            className="btn delete"
                             onClick={() =>
                                 props.dispatch({
-                                    type: "DELETE",
+                                    type: "DELETE_TASK",
                                     payload: task.id
                                 })
                             }
