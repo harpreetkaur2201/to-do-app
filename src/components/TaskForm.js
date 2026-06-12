@@ -8,7 +8,7 @@ function TaskForm(props) {
         if (props.editId === null) {
 
             props.dispatch({
-                type: "ADD",
+                type: "ADD_TASK",
                 payload: {
                     id: Date.now(),
                     text: props.text,
@@ -20,7 +20,7 @@ function TaskForm(props) {
         } else {
 
             props.dispatch({
-                type: "EDIT",
+                type: "EDIT_TASK",
                 payload: {
                     id: props.editId,
                     text: props.text,
