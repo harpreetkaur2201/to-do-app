@@ -1,3 +1,10 @@
+import {
+    FaClipboardList,
+    FaCheck,
+    FaPen,
+    FaTrash
+} from "react-icons/fa6";
+
 function TaskList(props) {
 
     function startEdit(task) {
@@ -5,8 +12,21 @@ function TaskList(props) {
         props.setEditId(task.id);
     }
 
+    if (props.tasks.length === 0) {
+        return (
+            <div className="empty-state">
+
+                <FaClipboardList className="empty-icon" />
+
+                <h3>No tasks yet</h3>
+                <p>Add your first task to get started</p>
+
+            </div>
+        );
+    }
+
     return (
-        <div>
+        <div className="task-list">
 
             {props.tasks.map(task => (
                 <div
@@ -21,26 +41,38 @@ function TaskList(props) {
 
                     <div className="buttons">
 
-                        <button onClick={() =>
-                            props.dispatch({
-                                type: "TOGGLE",
-                                payload: task.id
-                            })
-                        }>
-                            ✔
+                        {/* COMPLETE */}
+                        <button
+                            className="btn complete"
+                            onClick={() =>
+                                props.dispatch({
+                                    type: "TOGGLE",
+                                    payload: task.id
+                                })
+                            }
+                        >
+                            <FaCheck />
                         </button>
 
-                        <button onClick={() => startEdit(task)}>
-                            ✏️
+                        {/* EDIT */}
+                        <button
+                            className="btn edit"
+                            onClick={() => startEdit(task)}
+                        >
+                            <FaPen />
                         </button>
 
-                        <button onClick={() =>
-                            props.dispatch({
-                                type: "DELETE",
-                                payload: task.id
-                            })
-                        }>
-                            🗑
+                        {/* DELETE */}
+                        <button
+                            className="btn delete"
+                            onClick={() =>
+                                props.dispatch({
+                                    type: "DELETE",
+                                    payload: task.id
+                                })
+                            }
+                        >
+                            <FaTrash />
                         </button>
 
                     </div>
