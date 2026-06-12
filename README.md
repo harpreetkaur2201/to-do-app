@@ -1,8 +1,8 @@
 # To-DO App
 This is a simple To-Do application built using React. It allows users to manage daily tasks by adding, editing, deleting, and marking tasks as completed.
 
-👉 <a href="https://harpreetkaur2201.github.io/to-do-app/" target="_blank">Open Live App</a>
-## How It Works
+## Live Demo
+[Open Live App](https://harpreetkaur2201.github.io/to-do-app/)
 
 ### Adding a Task
 Users enter a task in the input field and click **Add**. The task is stored in the state and saved automatically.
