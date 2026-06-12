@@ -1,14 +1,18 @@
 import { FaCheck, FaPen, FaTrash } from "react-icons/fa";
 
 function TaskList(props) {
+   const activeTasks = props.tasks.filter(t => !t.completed);
+   const doneTasks = props.tasks.filter(t => t.completed);
 
     if (props.tasks.length === 0) {
         return <p>No tasks yet</p>;
     }
 
     return (
-        <div className="task-list">
-
+<div
+    className={task.completed ? "task done" : "task"}
+    style={{ borderLeft: `6px solid ${task.color}` }}
+>
             {props.tasks.map(task => (
                 <div
                     key={task.id}
