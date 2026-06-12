@@ -19,7 +19,9 @@ export function taskReducer(state, action) {
         ...state,
         {
             ...action.payload,
-            color: generateColor()
+            color: generateColor(),
+            time: "12:00",
+            repeat: "once"
         }
     ];
 

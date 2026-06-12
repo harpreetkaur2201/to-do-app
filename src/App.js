@@ -3,47 +3,41 @@ import TaskForm from "./components/TaskForm";
 import TaskList from "./components/TaskList";
 import { taskReducer } from "./reducer/taskReducer";
 
-function App() {
-
-    const [tasks, dispatch] = useReducer(
-        taskReducer,
-        [],
-        () => {
-            const saved = localStorage.getItem("tasks");
-            return saved ? JSON.parse(saved) : [];
-        }
-    );
-
-    const [text, setText] = useState("");
-    const [editId, setEditId] = useState(null);
-
-    useEffect(() => {
-        localStorage.setItem("tasks", JSON.stringify(tasks));
-    }, [tasks]);
-
+function App(props) {
     return (
-        <main className="app">
+        <div className="app">
 
-            <h1>To-Do App</h1>
+            {/* HEADER (put here) */}
+            <div className="app-header">
+                <div className="logo"></div>
 
-            <TaskForm
-                text={text}
-                setText={setText}
-                editId={editId}
-                setEditId={setEditId}
-                dispatch={dispatch}
-            />
+                <div>
+                    <h1>My Tasks</h1>
+                    <p className="count">
+                        {props.tasks.length} tasks
+                    </p>
+                </div>
+            </div>
 
-            <p>Total Tasks: {tasks.length}</p>
+            {/* FORM */}
+            <form className="task-form" onSubmit={props.handleSubmit}>
+                <input
+                    value={props.text}
+                    onChange={(e) => props.setText(e.target.value)}
+                    placeholder="What needs to be done?"
+                />
+                <button type="submit">+ ADD</button>
+            </form>
 
+            {/* TASK LIST */}
             <TaskList
-                tasks={tasks}
-                dispatch={dispatch}
-                setText={setText}
-                setEditId={setEditId}
+                tasks={props.tasks}
+                dispatch={props.dispatch}
+                setText={props.setText}
+                setEditId={props.setEditId}
             />
 
-        </main>
+        </div>
     );
 }
 
