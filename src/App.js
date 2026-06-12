@@ -30,6 +30,7 @@ function App() {
     }, [tasks]);
 
     return (
+      <>
         <main className="app">
 
             <h1>To-Do App</h1>
@@ -40,12 +41,14 @@ function App() {
                 Total Tasks: {tasks.length}
             </p>
 
-            <TaskList
+        </main>
+        <section>
+          <TaskList
                 tasks={tasks}
                 dispatch={dispatch}
             />
-
-        </main>
+        </section>
+        </>
     );
 }
 
