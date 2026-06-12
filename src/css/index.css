@@ -1,41 +1,34 @@
-@import './reset.css';
-
-/* =========================
-   GLOBAL
-========================= */
+@import "./reset.css";
 
 body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
-    background: #0f0f17;
-    color: #fff;
+    background: linear-gradient(135deg, #a78bfa, #60a5fa, #34d399);
+    min-height: 100vh;
 
     display: flex;
     justify-content: center;
+
+    padding: 40px 20px;
+    box-sizing: border-box;
 }
 
-/* =========================
-   APP CONTAINER (DARK CARD)
-========================= */
-
 .app {
-    width: min(1100px, 95%);
-    margin-top: 30px;
+    width: min(1100px, calc(100% - 40px));
+    margin: 0 auto;
 
-    background: #141424;
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(10px);
+
     border-radius: 18px;
     padding: 24px;
-
-    box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
 
     display: flex;
     flex-direction: column;
     gap: 18px;
-}
 
-/* =========================
-   HEADER BAR
-========================= */
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+}
 
 .app-header {
     display: flex;
@@ -43,30 +36,20 @@ body {
     align-items: center;
 
     padding-bottom: 12px;
-    border-bottom: 1px solid rgba(255,255,255,0.08);
+    border-bottom: 1px solid rgba(0,0,0,0.08);
 }
 
-.app-header h1 {
-    font-size: 22px;
-    margin: 0;
+.logo {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #f472b6, #a78bfa);
 }
 
 .count {
     font-size: 12px;
-    color: #a1a1aa;
+    color: #6b7280;
 }
-
-/* optional icon badge like screenshot */
-.logo {
-    width: 36px;
-    height: 36px;
-    background: #7c3aed;
-    border-radius: 10px;
-}
-
-/* =========================
-   INPUT BAR
-========================= */
 
 .task-form {
     display: flex;
@@ -79,221 +62,172 @@ body {
     padding: 12px 14px;
 
     border-radius: 12px;
-    border: 1px solid rgba(255,255,255,0.1);
+    border: 1px solid rgba(0,0,0,0.1);
 
-    background: #1b1b2b;
-    color: white;
+    background: rgba(255, 255, 255, 0.8);
+    color: #111827;
 
     outline: none;
 }
 
 .task-form input::placeholder {
-    color: #777;
+    color: #9ca3af;
 }
 
 .task-form button {
     padding: 12px 16px;
     border-radius: 12px;
-    border: none;
 
-    background: #7c3aed;
+    border: none;
+    cursor: pointer;
+
+    font-weight: bold;
     color: white;
 
-    cursor: pointer;
-    font-weight: bold;
+    background: linear-gradient(135deg, #f472b6, #60a5fa);
 }
 
 .task-form button:hover {
-    background: #6d28d9;
+    opacity: 0.9;
 }
-
-/* =========================
-   FILTER BAR (ALL / ACTIVE / DONE)
-========================= */
-
-.filters {
-    display: flex;
-    gap: 8px;
-
-    background: #1b1b2b;
-    padding: 6px;
-    border-radius: 12px;
-
-    width: fit-content;
-    margin: 0 auto;
-}
-
-.filters button {
-    border: none;
-    padding: 8px 12px;
-    border-radius: 10px;
-
-    background: transparent;
-    color: #aaa;
-
-    cursor: pointer;
-}
-
-.filters button.active {
-    background: #7c3aed;
-    color: white;
-}
-
-/* =========================
-   VIEW TOGGLE (GRID / LIST ICONS)
-========================= */
-
-.view-toggle {
-    display: flex;
-    gap: 6px;
-
-    position: absolute;
-    right: 24px;
-    top: 110px;
-}
-
-.view-toggle button {
-    width: 36px;
-    height: 36px;
-
-    border-radius: 10px;
-    border: none;
-
-    background: #1b1b2b;
-    color: #aaa;
-
-    cursor: pointer;
-}
-
-.view-toggle button.active {
-    background: #7c3aed;
-    color: white;
-}
-
-/* =========================
-   TASK GRID (LIKE IMAGE)
-========================= */
 
 .task-list {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    flex-wrap: wrap;
     gap: 14px;
-
-    margin-top: 10px;
 }
 
-/* responsive */
+/* CARD LAYOUT */
+.task-row {
+    flex: 0 0 calc(33.333% - 14px);
+
+    display: flex;
+    flex-direction: row;
+
+    border-radius: 16px;
+    overflow: hidden;
+
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    border: 1px solid rgba(0,0,0,0.08);
+
+    background: white;
+
+    transition: 0.25s ease;
+}
+
+.task-row:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+
+/* RESPONSIVE */
 @media (max-width: 900px) {
-    .task-list {
-        grid-template-columns: repeat(2, 1fr);
+    .task-row {
+        flex: 0 0 calc(50% - 14px);
     }
 }
 
 @media (max-width: 600px) {
-    .task-list {
-        grid-template-columns: 1fr;
+    .task-row {
+        flex: 0 0 100%;
     }
 }
 
-/* =========================
-   TASK CARD (DARK GLASS STYLE)
-========================= */
-
-.task-row {
-    background: #1b1b2b;
-    border-radius: 14px;
-    padding: 14px;
-
-    border: 1px solid rgba(255,255,255,0.06);
+/* DATE COLUMN */
+.task-date {
+    width: 70px;
 
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    color: white;
+
+    background: linear-gradient(135deg, #60a5fa, #a78bfa);
+
+    padding: 10px;
+}
+
+.date-num {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.date-day {
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+/* MAIN CONTENT */
+.task-card {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    padding: 14px;
+    color: #111827;
+}
+
+.task-info h3,
+.task-info p {
+    margin: 0;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+}
+
+/* ACTION BAR */
+.task-actions {
+    display: flex;
+    justify-content: center;
     gap: 10px;
+
+    margin-top: 10px;
+}
+
+/* ICON BUTTONS (POP STYLE) */
+.task-actions button {
+    width: 38px;
+    height: 38px;
+
+    border-radius: 50%;
+    border: none;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: white;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.12);
 
     transition: 0.2s ease;
 }
 
-.task-row:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(124, 58, 237, 0.15);
-}
-
-/* =========================
-   TOP COLOR LINE (LIKE IMAGE)
-========================= */
-
-.task-row {
-    position: relative;
-}
-
-.task-row::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 4px;
-    width: 100%;
-
-    background: linear-gradient(90deg, #7c3aed, #22c55e);
-    border-radius: 14px 14px 0 0;
-}
-
-/* =========================
-   TASK CONTENT
-========================= */
-
-.task-info h3 {
-    margin: 0;
-    font-size: 15px;
-}
-
-.task-info p {
-    margin: 4px 0 0;
-    font-size: 12px;
-    color: #9ca3af;
-}
-
-/* =========================
-   ACTIONS (BOTTOM ROW LIKE IMAGE)
-========================= */
-
-.task-actions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    margin-top: 6px;
-}
-
-.task-actions button {
-    border: none;
-    background: #141424;
-
-    width: 34px;
-    height: 34px;
-
-    border-radius: 10px;
-
-    cursor: pointer;
-    color: #aaa;
-
-    transition: 0.2s;
-}
-
 .task-actions button:hover {
-    transform: scale(1.1);
-    color: white;
+    transform: translateY(-3px) scale(1.15);
 }
 
-/* icons coloring */
-.task-actions button:nth-child(1) { color: #22c55e; }
-.task-actions button:nth-child(2) { color: #60a5fa; }
-.task-actions button:nth-child(3) { color: #ef4444; }
+/* ICON COLORS */
+.task-actions button:nth-child(1) {
+    color: #22c55e;
+    background: rgba(34, 197, 94, 0.12);
+}
 
-/* =========================
-   COMPLETED STATE
-========================= */
+.task-actions button:nth-child(2) {
+    color: #3b82f6;
+    background: rgba(59, 130, 246, 0.12);
+}
 
+.task-actions button:nth-child(3) {
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.12);
+}
+
+/* DONE STATE */
 .task-row.done {
     opacity: 0.6;
 }

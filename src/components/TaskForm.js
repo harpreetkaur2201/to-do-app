@@ -1,5 +1,4 @@
 function TaskForm(props) {
-
     function handleSubmit(e) {
         e.preventDefault();
 
@@ -39,7 +38,7 @@ function TaskForm(props) {
                 placeholder="Enter task..."
             />
 
-            <button>
+            <button type="submit">
                 {props.editId === null ? "Add" : "Update"}
             </button>
         </form>

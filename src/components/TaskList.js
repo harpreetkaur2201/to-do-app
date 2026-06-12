@@ -6,11 +6,12 @@ function TaskList(props) {
     }
 
     return (
-        <div>
+        <div className="task-list">
             {props.tasks.map(task => (
-                <div className="task-row" key={task.id}>
-
-                    {/* LEFT DATE COLUMN */}
+                <div
+                    className={task.completed ? "task-row done" : "task-row"}
+                    key={task.id}
+                >
                     <div className="task-date">
                         <div
                             className="dot"
@@ -32,9 +33,8 @@ function TaskList(props) {
                         </div>
                     </div>
 
-                    {/* RIGHT CARD */}
                     <div
-                        className={task.completed ? "task-card done" : "task-card"}
+                        className="task-card"
                         style={{ background: task.color }}
                     >
                         <div className="task-info">

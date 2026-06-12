@@ -1,29 +1,27 @@
 export function taskReducer(state, action) {
-    function generateColor() {
-    const colors = [
-        "#FF6B6B",
-        "#6BCB77",
-        "#4D96FF",
-        "#FFD93D",
-        "#845EC2",
-        "#00C9A7",
-        "#FF9671"
-    ];
 
-    return colors[Math.floor(Math.random() * colors.length)];
-}
+    function getDateTime() {
+        const now = new Date();
+
+        return {
+            date: now.toLocaleDateString(),
+            time: now.toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit"
+            })
+        };
+    }
+
     switch (action.type) {
 
         case "ADD_TASK":
-    return [
-        ...state,
-        {
-            ...action.payload,
-            color: generateColor(),
-            time: "12:00",
-            repeat: "once"
-        }
-    ];
+            return [
+                ...state,
+                {
+                    ...action.payload,
+                    ...getDateTime()
+                }
+            ];
 
         case "DELETE_TASK":
             return state.filter(task => task.id !== action.payload);
@@ -40,8 +38,7 @@ export function taskReducer(state, action) {
                 task.id === action.payload.id
                     ? {
                         ...task,
-                        text: action.payload.text,
-                        date: action.payload.date
+                        text: action.payload.text
                     }
                     : task
             );

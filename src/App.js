@@ -1,42 +1,38 @@
-import { useReducer, useEffect, useState } from "react";
+import { useReducer, useState } from "react";
 import TaskForm from "./components/TaskForm";
 import TaskList from "./components/TaskList";
 import { taskReducer } from "./reducer/taskReducer";
 
-function App(props) {
+function App() {
+    const [tasks, dispatch] = useReducer(taskReducer, []);
+    const [text, setText] = useState("");
+    const [editId, setEditId] = useState(null);
+
     return (
         <div className="app">
-
-            {/* HEADER (put here) */}
             <div className="app-header">
                 <div className="logo"></div>
 
                 <div>
                     <h1>My Tasks</h1>
-                    <p className="count">
-                        {props.tasks.length} tasks
-                    </p>
+                    <p className="count">{tasks.length} tasks</p>
                 </div>
             </div>
 
-            {/* FORM */}
-            <form className="task-form" onSubmit={props.handleSubmit}>
-                <input
-                    value={props.text}
-                    onChange={(e) => props.setText(e.target.value)}
-                    placeholder="What needs to be done?"
-                />
-                <button type="submit">+ ADD</button>
-            </form>
-
-            {/* TASK LIST */}
-            <TaskList
-                tasks={props.tasks}
-                dispatch={props.dispatch}
-                setText={props.setText}
-                setEditId={props.setEditId}
+            <TaskForm
+                text={text}
+                setText={setText}
+                editId={editId}
+                setEditId={setEditId}
+                dispatch={dispatch}
             />
 
+            <TaskList
+                tasks={tasks}
+                dispatch={dispatch}
+                setText={setText}
+                setEditId={setEditId}
+            />
         </div>
     );
 }
