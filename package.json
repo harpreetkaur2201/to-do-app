@@ -1,8 +1,7 @@
 {
   "name": "to-do-app",
   "version": "0.1.0",
-  "homepage": "https://harpreetkaur2201.github.io/to-do-app",
-  "private": true,
+  "homepage": "https://harpreetkaur2201.github.io/to-do-app",  "private": true,
   "dependencies": {
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
